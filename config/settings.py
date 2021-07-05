@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'accounts',
     'profiles',
     'posts',
+    'pages',
 ]
 
 MIDDLEWARE = [
@@ -121,7 +122,7 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'post_list'
 ACCOUNT_LOGOUT_REDIRECT = 'home'
 ACCOUNT_SIGNUP_REDIRECT_URL = 'profile_update'
 ACCOUNT_SESSION_REMEMBER = True

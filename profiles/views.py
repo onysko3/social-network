@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import DetailView, ListView
@@ -5,6 +6,7 @@ from .models import Profile
 from .forms import ProfileForm
 
 
+@login_required
 def profile_update(request):
     profile = get_object_or_404(Profile, user=request.user)
     form = ProfileForm(request.POST or None, request.FILES or None, instance=profile)

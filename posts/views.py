@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import DeleteView, CreateView
+from django.views.generic import DeleteView, CreateView, ListView
 from .models import Post
 
 
@@ -27,8 +27,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return obj.author == self.request.user
 
 
-@login_required
-def post_list(request):
-    context = {}
-    context['posts'] = Post.objects.all()
-    return render(request, 'posts/post_list.html', context)
+class PostListView(ListView):
+    model = Post
+    context_object_name = 'posts'
+    template_name = 'posts/post_list.html'
