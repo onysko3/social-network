@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}News{% endblock title %}
+
+{% block content %}
+
+  {% for post in posts %}
+    {% with forloop.counter0 as outer_counter %}
+    <p><strong><a class="text-decoration-none"
+                  href="{{ post.author.profile.get_absolute_url }}">
+      {{ post.author.profile.first_name }} {{ post.author.profile.last_name }}</a>
+    </strong><span
+        class="small text-muted mr-auto"> |
+      {% if post.created.minute !=  post.updated.minute %}
+        Updated at: {{ post.updated }} |
+      {% endif %}Created at: {{ post.created }}</span></p>
+
+    {% if post.profile.user.username == request.user.username %}
+      <form method="POST" action="{% url 'post_delete' post.id %}">
+        {% csrf_token %}
+        <button type="submit" class="close text-danger">&times;</button>
+      </form>
+    {% endif %}
+
+
+    {% if post.pictures.count %}
+      <div class="row">
+        <div class="col-md-4">
+
+          <div id="carouselExampleControls{{ outer_counter }}" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              {% for picture in post.pictures.all %}
+                <div class="carousel-item {% if forloop.counter0 == 0 %}active{% endif %}">
+                  <img class="d-block w-100" src="{{ picture.picture.url }}" alt="slide">
+                </div>
+              {% endfor %}
+
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls{{ outer_counter }}" role="button"
+               data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls{{ outer_counter }}" role="button"
+               data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+
+
+        </div>
+        <div class="col-md-8">
+          <p>{{ post.body }}</p>
+        </div>
+      </div>
+    {% else %}
+      <p>{{ post.body }}</p>
+    {% endif %}
+
+    <hr>
+    {% endwith %}
+  {% endfor %}
+
+  <br><br><br>
+{% endblock content %}

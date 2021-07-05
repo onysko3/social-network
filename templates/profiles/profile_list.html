@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Peoples{% endblock title %}
+
+{% block content %}
+
+  <form class="mb-3" action="{% url 'profile_list' %}" method="get">
+  <div class="row text-center mx-auto">
+    <div class="col-xs">
+      <input class="form-control" name="q" type="text" placeholder="Search" aria-label="Search">
+    </div>
+    <div class="col-xs">
+      <button class="btn btn-primary ml-2 mb-2" type="submit">Search</button>
+    </div>
+  </div>
+		</form>
+
+  {% for profile in profile_list %}
+    <a class="text-decoration-none text-reset" href="{{ profile.get_absolute_url }}">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <img src="{{ profile.avatar.url }}" alt="{{ profile.first_name }} {{ profile.last_name }}"
+          style="width: 200px; height: 200px; object-fit: cover;">
+        </div>
+        <div class="col-md-8">
+          <h3>{{ profile.first_name }} {{ profile.last_name }}</h3>
+
+          {% if profile.bio %}
+        <p class="m-0"><strong>Bio: </strong>{{ profile.bio|truncatechars:150 }}</p>
+          {% endif %}
+
+        {% if profile.birthdate %}
+        <p class="m-0"><strong>Date of Birth: </strong>{{ profile.birthdate }}</p>
+      {% endif %}
+
+      {% if profile.sex %}
+        <p class="m-0"><strong>Sex: </strong>{% if profile.sex == 'M' %}Male{% elif profile.sex == 'F' %}
+          Female{% endif %}</p>
+      {% endif %}
+
+      {% if profile.counrty or profile.city %}
+        <p class="m-0"><strong>Location: </strong>
+          {% if profile.city %}{{ profile.city }}{% endif %}{% if profile.country and profile.city %},{% endif %}
+          {% if profile.country %}{{ profile.country }}{% endif %}
+        </p>
+      {% endif %}
+        <div class="text-right">
+        <a class="btn btn-primary btn-sm" href="{{ profile.get_absolute_url }}">Detail</a>
+          </div>
+          </div>
+      </div>
+    </div>
+    <hr></a>
+
+  {% endfor %}
+
+{% endblock content %}
