@@ -10,7 +10,7 @@
   <button class="btn btn-danger" type="submit">Delete</button>
   </form>
 
-    <p><strong>{{ post.author }} </strong><span class="small text-muted mr-auto"> |
+    <p><strong>{{ post.author.first_name }} {{ post.author.last_name }}</strong><span class="small text-muted mr-auto"> |
       {% if post.created.minute !=  post.updated.minute %}
         Updated at: {{ post.updated }} |
       {% endif %}Created at: {{ post.created }}</span>

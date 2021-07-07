@@ -49,18 +49,18 @@
   <h4 class="text-center">Posts</h4>
   <hr>
 
-  {% for post in profile.user.posts.all %}
+  {% for post in profile.posts.all %}
     {% with forloop.counter0 as outer_counter %}
     <p><strong><a class="text-decoration-none"
-                  href="{{ post.author.get_absolute_url }}">
-      {{ post.author.profile.first_name }} {{ post.author.profile.last_name }}</a>
+                  href="{{ post.author.get_absolute_url }}"><img class="mr-2" src="{{ post.author.avatar.url }}" alt="{{ post.author.username }}" style="width: 80px;">
+      {{ post.author.first_name }} {{ post.author.last_name }}</a>
     </strong><span
         class="small text-muted mr-auto"> |
       {% if post.created.minute !=  post.updated.minute %}
         Updated at: {{ post.updated }} |
       {% endif %}Created at: {{ post.created }}</span></p>
 
-    {% if profile.user.username == request.user.username %}
+    {% if profile.username == request.user.username %}
       <form method="POST" action="{% url 'post_delete' post.id %}">
         {% csrf_token %}
         <button type="submit" class="close text-danger">&times;</button>

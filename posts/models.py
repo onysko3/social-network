@@ -19,7 +19,7 @@ class Post(models.Model):
         ordering = ['-created', '-updated']
 
     def get_absolute_url(self):
-        return reverse('profile_detail', kwargs={'slug': self.author.profile.slug})
+        return reverse('profile_detail', kwargs={'slug': self.author.slug})
 
     def __str__(self):
         return self.body[:80]

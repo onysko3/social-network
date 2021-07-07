@@ -4,10 +4,7 @@ from django.views.generic import TemplateView
 
 
 class HomePageView(TemplateView):
-    def get_template_names(self):
-        if self.request.user.is_authenticated:
-            return redirect('post_list')
-        return 'pages/home.html'
+    template_name = 'pages/home.html'
 
 
 class SettingsPageView(LoginRequiredMixin, TemplateView):
