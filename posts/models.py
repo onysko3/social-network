@@ -14,9 +14,13 @@ class Post(models.Model):
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='posts')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    likes = models.ManyToManyField(get_user_model(), related_name='post_like')
 
     class Meta:
         ordering = ['-created', '-updated']
+
+    def number_of_likes(self):
+        return self.likes.count()
 
     def get_absolute_url(self):
         return reverse('profile_detail', kwargs={'slug': self.author.slug})
