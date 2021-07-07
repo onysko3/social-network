@@ -54,7 +54,7 @@
       <p><strong><a class="text-decoration-none"
                     href="{{ post.author.get_absolute_url }}"><img class="mr-2" src="{{ post.author.avatar.url }}"
                                                                    alt="{{ post.author.username }}"
-                                                                   style="width: 80px;">
+                                                                   style="width: 80px; height: 80px; object-fit: cover;">
         {{ post.author.first_name }} {{ post.author.last_name }}</a>
       </strong><span
           class="small text-muted mr-auto"> |
@@ -105,11 +105,11 @@
       {% endif %}
 
       {% if user.is_authenticated %}
-        <form class="mr-auto text-right" action="{% url 'post_like' post.id %}" method="POST">
+        <form class="float-right" action="{% url 'post_like' post.id %}" method="POST">
           {% csrf_token %}
 
           <button type="submit" name="post_id" value="{{ post.id }}"
-                  class="btn btn-link text-decoration-none text-right"
+                  class="btn btn-link text-decoration-none
                   style="display: inline;">{{ post.number_of_likes }} <i class="fas fa-thumbs-up"></i></button>
         </form>
       {% else %}
