@@ -29,7 +29,7 @@ def profile_update(request):
 
 class ProfileDetailView(DetailView):
     model = User
-    queryset = User.objects.all()
+    queryset = User.objects.prefetch_related('posts').all()
     context_object_name = 'profile'
     template_name = 'profiles/profile_detail.html'
 
