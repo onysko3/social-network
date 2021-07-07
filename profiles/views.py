@@ -27,6 +27,7 @@ def profile_update(request):
 
 class ProfileDetailView(DetailView):
     model = Profile
+    queryset = Profile.objects.prefetch_related('user').all()
     context_object_name = 'profile'
     template_name = 'profiles/profile_detail.html'
 

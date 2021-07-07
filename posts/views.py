@@ -29,5 +29,6 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 class PostListView(ListView):
     model = Post
+    queryset = Post.objects.select_related('author').prefetch_related('pictures').all()
     context_object_name = 'posts'
     template_name = 'posts/post_list.html'

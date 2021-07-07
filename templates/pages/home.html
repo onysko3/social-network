@@ -1,7 +1,13 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Social Network{% endblock title %}
 
 {% block content %}
-  HOME
+  <div class="text-center">
+  <h3>Find new people, share your impressions and keep abreast of events!</h3>
+  <a class="btn btn-success mb-4 mt-2" href="{% url 'account_signup' %}">Join us!</a><br>
+  <img class="img-thumbnail mb-4" src="{% static 'image/intro.jpg' %}" alt="people" style="width: 50%;">
+  </div>
+
 {% endblock content %}
